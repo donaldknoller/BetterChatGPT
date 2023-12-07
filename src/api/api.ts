@@ -15,32 +15,7 @@ export const getChatCompletion = async (
   };
   if (apiKey) headers.Authorization = `Bearer ${apiKey}`;
 
-  if (isAzureEndpoint(endpoint) && apiKey) {
-    headers['api-key'] = apiKey;
-
-    const modelmapping: Partial<Record<ModelOptions, string>> = {
-      'gpt-3.5-turbo': 'gpt-35-turbo',
-      'gpt-3.5-turbo-16k': 'gpt-35-turbo-16k',
-    };
-
-    const model = modelmapping[config.model] || config.model;
-
-    // set api version to 2023-07-01-preview for gpt-4 and gpt-4-32k, otherwise use 2023-03-15-preview
-    const apiVersion =
-      model === 'gpt-4' || model === 'gpt-4-32k'
-        ? '2023-07-01-preview'
-        : '2023-03-15-preview';
-
-    const path = `openai/deployments/${model}/chat/completions?api-version=${apiVersion}`;
-
-    if (!endpoint.endsWith(path)) {
-      if (!endpoint.endsWith('/')) {
-        endpoint += '/';
-      }
-      endpoint += path;
-    }
-  }
-
+  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
   const response = await fetch(endpoint, {
     method: 'POST',
     headers,
@@ -53,6 +28,7 @@ export const getChatCompletion = async (
   if (!response.ok) throw new Error(await response.text());
 
   const data = await response.json();
+
   return data;
 };
 
@@ -65,34 +41,10 @@ export const getChatCompletionStream = async (
 ) => {
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
+    'Target-URL': endpoint,
     ...customHeaders,
   };
   if (apiKey) headers.Authorization = `Bearer ${apiKey}`;
-
-  if (isAzureEndpoint(endpoint) && apiKey) {
-    headers['api-key'] = apiKey;
-
-    const modelmapping: Partial<Record<ModelOptions, string>> = {
-      'gpt-3.5-turbo': 'gpt-35-turbo',
-      'gpt-3.5-turbo-16k': 'gpt-35-turbo-16k',
-    };
-
-    const model = modelmapping[config.model] || config.model;
-
-    // set api version to 2023-07-01-preview for gpt-4 and gpt-4-32k, otherwise use 2023-03-15-preview
-    const apiVersion =
-      model === 'gpt-4' || model === 'gpt-4-32k'
-        ? '2023-07-01-preview'
-        : '2023-03-15-preview';
-    const path = `openai/deployments/${model}/chat/completions?api-version=${apiVersion}`;
-
-    if (!endpoint.endsWith(path)) {
-      if (!endpoint.endsWith('/')) {
-        endpoint += '/';
-      }
-      endpoint += path;
-    }
-  }
 
   const response = await fetch(endpoint, {
     method: 'POST',
@@ -101,7 +53,7 @@ export const getChatCompletionStream = async (
       messages,
       ...config,
       max_tokens: undefined,
-      stream: true,
+      stream: false,
     }),
   });
   if (response.status === 404 || response.status === 405) {
@@ -131,8 +83,9 @@ export const getChatCompletionStream = async (
     throw new Error(error);
   }
 
-  const stream = response.body;
-  return stream;
+  const result = await response.json();
+  console.dir(result)
+  return result;
 };
 
 export const submitShareGPT = async (body: ShareGPTSubmitBodyInterface) => {

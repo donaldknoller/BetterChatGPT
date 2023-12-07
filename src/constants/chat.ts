@@ -23,10 +23,15 @@ export const modelOptions: ModelOptions[] = [
   'gpt-3.5-turbo-1106',
   'gpt-4',
   'gpt-4-32k',
-  'gpt-4-1106-preview'
-  // 'gpt-3.5-turbo-0301',
-  // 'gpt-4-0314',
-  // 'gpt-4-32k-0314',
+  'gpt-4-1106-preview',
+  'mistral-7b-instruct',
+  'pplx-7b-chat',
+  'pplx-70b-chat',
+  'pplx-7b-online',
+  'pplx-70b-online',
+  'llama-2-70b-chat',
+  'codellama-34b-instruct'
+
 ];
 
 export const defaultModel = 'gpt-3.5-turbo';
@@ -45,8 +50,19 @@ export const modelMaxToken = {
   'gpt-4-32k-0314': 32768,
   'gpt-4-32k-0613': 32768,
   'gpt-4-1106-preview': 128000,
+  'mistral-7b-instruct': 8192,
+  'pplx-7b-chat': 4096,
+  'pplx-70b-chat': 4096,
+  'pplx-7b-online': 4096,
+  'pplx-70b-online': 4096,
+  'llama-2-70b-chat': 4096,
+  'codellama-34b-instruct': 4096
 };
 
+const flatModel =  {
+  prompt: { price: 0.0015, unit: 1000 },
+  completion: { price: 0.002, unit: 1000 },
+}
 export const modelCost = {
   'gpt-3.5-turbo': {
     prompt: { price: 0.0015, unit: 1000 },
@@ -76,6 +92,16 @@ export const modelCost = {
     prompt: { price: 0.03, unit: 1000 },
     completion: { price: 0.06, unit: 1000 },
   },
+  'mistral-7b-instruct': {
+    prompt: { price: 0.03, unit: 1000 },
+    completion: { price: 0.06, unit: 1000 },
+  },
+  'pplx-7b-chat': flatModel,
+  'pplx-70b-chat': flatModel,
+  'pplx-7b-online': flatModel,
+  'pplx-70b-online': flatModel,
+  'llama-2-70b-chat': flatModel,
+  'codellama-34b-instruct': flatModel,
   'gpt-4-0314': {
     prompt: { price: 0.03, unit: 1000 },
     completion: { price: 0.06, unit: 1000 },
