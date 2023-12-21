@@ -50,9 +50,6 @@ export interface Folder {
 }
 
 export type ModelOptions =
-    'gpt-4' |
-    'gpt-4-32k' |
-    'gpt-4-1106-preview' |
     'mixtral-8x7b-instruct' |
     'mistral-7b-instruct' |
     'pplx-7b-chat' |
