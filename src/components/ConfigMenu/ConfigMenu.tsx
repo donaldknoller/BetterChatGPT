@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import PopupModal from '@components/PopupModal';
 import { ConfigInterface, ModelOptions } from '@type/chat';
 import DownChevronArrow from '@icon/DownChevronArrow';
-import { modelMaxToken, modelOptions } from '@constants/chat';
+import { modelOptions } from '@constants/chat';
 
 const ConfigMenu = ({
   setIsModalOpen,
@@ -150,7 +150,7 @@ export const MaxTokenSlider = ({
           _setMaxToken(Number(e.target.value));
         }}
         min={0}
-        max={modelMaxToken[_model]}
+        max={4000}
         step={1}
         className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer'
       />

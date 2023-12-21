@@ -18,46 +18,36 @@ Carefully heed the user's instructions.
 Respond using Markdown.`;
 
 export const modelOptions: ModelOptions[] = [
-  'gpt-3.5-turbo',
-  'gpt-3.5-turbo-16k',
-  'gpt-3.5-turbo-1106',
-  'gpt-4',
-  'gpt-4-32k',
-  'gpt-4-1106-preview',
   'mistral-7b-instruct',
-  'pplx-7b-chat',
-  'pplx-70b-chat',
   'pplx-7b-online',
   'pplx-70b-online',
   'llama-2-70b-chat',
-  'codellama-34b-instruct'
+  'mixtral-8x7b-instruct'
+]
+export const defaultModel = 'mixtral-8x7b-instruct';
 
-];
-
-export const defaultModel = 'gpt-3.5-turbo';
-
-export const modelMaxToken = {
-  'gpt-3.5-turbo': 4096,
-  'gpt-3.5-turbo-0301': 4096,
-  'gpt-3.5-turbo-0613': 4096,
-  'gpt-3.5-turbo-16k': 16384,
-  'gpt-3.5-turbo-16k-0613': 16384,
-  'gpt-3.5-turbo-1106': 16384,
-  'gpt-4': 8192,
-  'gpt-4-0314': 8192,
-  'gpt-4-0613': 8192,
-  'gpt-4-32k': 32768,
-  'gpt-4-32k-0314': 32768,
-  'gpt-4-32k-0613': 32768,
-  'gpt-4-1106-preview': 128000,
-  'mistral-7b-instruct': 8192,
-  'pplx-7b-chat': 4096,
-  'pplx-70b-chat': 4096,
-  'pplx-7b-online': 4096,
-  'pplx-70b-online': 4096,
-  'llama-2-70b-chat': 4096,
-  'codellama-34b-instruct': 4096
-};
+// export const modelMaxToken = {
+//   'gpt-3.5-turbo': 4096,
+//   'gpt-3.5-turbo-0301': 4096,
+//   'gpt-3.5-turbo-0613': 4096,
+//   'gpt-3.5-turbo-16k': 16384,
+//   'gpt-3.5-turbo-16k-0613': 16384,
+//   'gpt-3.5-turbo-1106': 16384,
+//   'gpt-4': 8192,
+//   'gpt-4-0314': 8192,
+//   'gpt-4-0613': 8192,
+//   'gpt-4-32k': 32768,
+//   'gpt-4-32k-0314': 32768,
+//   'gpt-4-32k-0613': 32768,
+//   'gpt-4-1106-preview': 128000,
+//   'mistral-7b-instruct': 8192,
+//   'pplx-7b-chat': 4096,
+//   'pplx-70b-chat': 4096,
+//   'pplx-7b-online': 4096,
+//   'pplx-70b-online': 4096,
+//   'llama-2-70b-chat': 4096,
+//   'codellama-34b-instruct': 4096
+// };
 
 const flatModel =  {
   prompt: { price: 0.0015, unit: 1000 },
@@ -136,7 +126,7 @@ export const _defaultChatConfig: ConfigInterface = {
   temperature: 1,
   presence_penalty: 0,
   top_p: 1,
-  frequency_penalty: 0,
+  frequency_penalty: 0.1,
 };
 
 export const generateDefaultChat = (
