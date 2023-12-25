@@ -3,7 +3,6 @@ import useStore from '@store/store';
 import { shallow } from 'zustand/shallow';
 
 import countTokens from '@utils/messageUtils';
-import { modelCost } from '@constants/chat';
 
 const TokenCount = React.memo(() => {
   const [tokenCount, setTokenCount] = useState<number>(0);
@@ -17,13 +16,11 @@ const TokenCount = React.memo(() => {
   const model = useStore((state) =>
     state.chats
       ? state.chats[state.currentChatIndex].config.model
-      : 'mixtral-8x7b-instruct'
+      : 'mistralai/Mixtral-8x7B-Instruct-v0.1'
   );
 
   const cost = useMemo(() => {
-    const price =
-      modelCost[model].prompt.price *
-      (tokenCount / modelCost[model].prompt.unit);
+    const price = 1      
     return price.toPrecision(3);
   }, [model, tokenCount]);
 

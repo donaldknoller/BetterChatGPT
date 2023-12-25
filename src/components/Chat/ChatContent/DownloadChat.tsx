@@ -60,28 +60,7 @@ const DownloadChat = React.memo(
                 <ImageIcon />
                 Image
               </button>
-              {/* <button
-                className='btn btn-neutral gap-2'
-                onClick={async () => {
-                  if (saveRef && saveRef.current) {
-                    const imgData = await htmlToImg(saveRef.current);
-                    downloadPDF(
-                      imgData,
-                      useStore.getState().theme,
-                      `${
-                        useStore
-                          .getState()
-                          .chats?.[
-                            useStore.getState().currentChatIndex
-                          ].title.trim() ?? 'download'
-                      }.pdf`
-                    );
-                  }
-                }}
-              >
-                <PdfIcon />
-                PDF
-              </button> */}
+              
               <button
                 className='btn btn-neutral gap-2'
                 aria-label='markdown'
@@ -120,6 +99,20 @@ const DownloadChat = React.memo(
               >
                 <JsonIcon />
                 JSON
+              </button>
+              <button
+                className='btn btn-neutral gap-2'
+                aria-label='internal'
+                onClick={async () => {
+                  const chats = useStore.getState().chats;
+                  if (chats) {
+                    const chat = chats[useStore.getState().currentChatIndex];
+                    downloadFile([chat], chat.title);
+                  }
+                }}
+              >
+                <JsonIcon />
+                INTERNAL
               </button>
             </div>
           </PopupModal>

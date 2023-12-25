@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import useStore from '@store/store';
 
-import { modelCost } from '@constants/chat';
 import Toggle from '@components/Toggle/Toggle';
 
 import { ModelOptions, TotalTokenUsed } from '@type/chat';
@@ -17,7 +16,10 @@ const tokenCostToCost = (
   model: ModelOptions
 ) => {
   if (!tokenCost) return 0;
-  const { prompt, completion } = modelCost[model as keyof typeof modelCost];
+  const { prompt, completion } = {
+    prompt: { price: 0.0015, unit: 1000 },
+    completion: { price: 0.002, unit: 1000 },
+  };
   const completionCost =
     (completion.price / completion.unit) * tokenCost.completionTokens;
   const promptCost = (prompt.price / prompt.unit) * tokenCost.promptTokens;
