@@ -25,6 +25,9 @@ const ConfigMenu = ({
   const [_frequencyPenalty, _setFrequencyPenalty] = useState<number>(
     config.frequency_penalty
   );
+  const [_secretCode, _setSecretCode] = useState<string>(
+    config.secretCode
+  );
   const { t } = useTranslation('model');
 
   const handleConfirm = () => {
@@ -35,6 +38,7 @@ const ConfigMenu = ({
       presence_penalty: _presencePenalty,
       top_p: _topP,
       frequency_penalty: _frequencyPenalty,
+      secretCode: _secretCode,
     });
     setIsModalOpen(false);
   };
@@ -65,6 +69,10 @@ const ConfigMenu = ({
         <FrequencyPenaltySlider
           _frequencyPenalty={_frequencyPenalty}
           _setFrequencyPenalty={_setFrequencyPenalty}
+        />
+                 <SecretCodeInput
+          _secretCode={_secretCode}
+          _setSecretCode={_setSecretCode}
         />
       </div>
     </PopupModal>
@@ -292,5 +300,45 @@ export const FrequencyPenaltySlider = ({
     </div>
   );
 };
+
+export const SecretCodeInput = ({
+  _secretCode,
+  _setSecretCode,
+}: {
+  _secretCode: string;
+  _setSecretCode: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+
+  return (
+    <div className='mt-5 pt-5 border-t border-gray-500'>
+      <label htmlFor='secretCodeInput' className='block text-sm font-medium text-gray-900 dark:text-white'>
+        {'secretCode'}: 
+      </label>
+      <textarea
+        id='secretCodeInput'
+        // type='text'
+        value={_secretCode}
+        onChange={(e) => {
+          _setSecretCode(e.target.value);
+        }}
+        name='secretCodeInput'
+      />
+      {/* <input
+        id='secretCodeInput'
+        type='text'
+        value={_secretCode}
+        onChange={(e) => {
+          _setSecretCode(e.target.value);
+        }}
+        name='secretCodeInput'
+        className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer'
+      /> */}
+      <div className='min-w-fit text-gray-500 dark:text-gray-300 text-sm mt-2'>
+        {'set secretCode for submission'}
+      </div>
+    </div>
+  );
+};
+
 
 export default ConfigMenu;

@@ -16,7 +16,7 @@ const TokenCount = React.memo(() => {
   const model = useStore((state) =>
     state.chats
       ? state.chats[state.currentChatIndex].config.model
-      : 'mistralai/Mixtral-8x7B-Instruct-v0.1'
+      : 'mixtral-8x7b-instruct'
   );
 
   const cost = useMemo(() => {

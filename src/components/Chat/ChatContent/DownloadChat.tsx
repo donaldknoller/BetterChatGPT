@@ -20,6 +20,7 @@ const DownloadChat = React.memo(
   ({ saveRef }: { saveRef: React.RefObject<HTMLDivElement> }) => {
     const { t } = useTranslation();
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [fileStatus, setFileStatus] = useState<string>("upload file");
     return (
       <>
         <button
@@ -38,7 +39,7 @@ const DownloadChat = React.memo(
             cancelButton={false}
           >
             <div className='p-6 border-b border-gray-200 dark:border-gray-600 flex gap-4'>
-              <button
+              {/* <button
                 className='btn btn-neutral gap-2'
                 aria-label='image'
                 onClick={async () => {
@@ -59,9 +60,9 @@ const DownloadChat = React.memo(
               >
                 <ImageIcon />
                 Image
-              </button>
+              </button> */}
               
-              <button
+              {/* <button
                 className='btn btn-neutral gap-2'
                 aria-label='markdown'
                 onClick={async () => {
@@ -85,8 +86,8 @@ const DownloadChat = React.memo(
               >
                 <MarkdownIcon />
                 Markdown
-              </button>
-              <button
+              </button> */}
+              {/* <button
                 className='btn btn-neutral gap-2'
                 aria-label='json'
                 onClick={async () => {
@@ -99,20 +100,29 @@ const DownloadChat = React.memo(
               >
                 <JsonIcon />
                 JSON
-              </button>
+              </button> */}
               <button
                 className='btn btn-neutral gap-2'
                 aria-label='internal'
                 onClick={async () => {
+                  setFileStatus("uploading...")
                   const chats = useStore.getState().chats;
                   if (chats) {
                     const chat = chats[useStore.getState().currentChatIndex];
-                    downloadFile([chat], chat.title);
+                    const status = await downloadFile([chat], chat.title);
+                    if(status){
+                      setFileStatus(`file upload success.\n chat history saved as ${chat.title} \nyou can close now`)
+                    } else {
+                      setFileStatus("file upload error. complain to someone")
+                    }
+                  } else {
+                    setFileStatus("no chat to export. close this NOW")
                   }
                 }}
               >
                 <JsonIcon />
-                INTERNAL
+                <p>{fileStatus}</p>
+                
               </button>
             </div>
           </PopupModal>

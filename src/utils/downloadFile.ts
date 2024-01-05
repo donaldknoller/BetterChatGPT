@@ -1,4 +1,5 @@
-const downloadFile = (data: any, filename: string) => {
+
+const downloadFile = async (data: any, filename: string): Promise<boolean> => {
 // data example:
 //[
 //     {
@@ -23,21 +24,42 @@ const downloadFile = (data: any, filename: string) => {
 // ]
 
 // For anyscale
+  const dataname = data[0].title;
+  const secretCode = data[0].config.secretCode
+
   const newdata = {
-    filename: data[0].title,
     messages: data[0].messages,
     model: data[0].config.model,
     temperature: data[0].config.temperature ?? 1,
     frequency_penalty: data[0].config.frequency_penalty ?? 0,
     presence_penalty: data[0].config.presence_penalty ?? 0,
   }
-  const blob = new Blob([JSON.stringify(newdata)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = filename;
-  link.click();
-  link.remove();
+  console.dir(secretCode)
+  console.dir(dataname)
+  console.dir(newdata)
+  
+  // const blob = new Blob([JSON.stringify(newdata)], { type: 'application/json' });
+  try {
+    const response = await fetch(`https://promptline-uploader.danksyapp.workers.dev/${dataname}.json`, {
+            method: "PUT",
+            // mode: 'no-cors', // Disable CORS
+            headers: {
+                "Content-Type": "application/json",
+                "X-SECRET-CODE": `${secretCode}`
+            },
+            body: JSON.stringify(newdata)
+        });
+  }catch(e){
+    console.error(e)
+    return false
+  }
+  // const url = URL.createObjectURL(blob);
+  // const link = document.createElement('a');
+  // link.href = url;
+  // link.download = filename;
+  // link.click();
+  // link.remove();
+  return true
 };
 
 export default downloadFile;

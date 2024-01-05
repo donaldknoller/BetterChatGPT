@@ -18,7 +18,7 @@ const ExportChat = () => {
       </div>
       <button
         className='btn btn-small btn-primary'
-        onClick={() => {
+        onClick={async () => {
           const fileData: Export = {
             chats: useStore.getState().chats,
             folders: useStore.getState().folders,

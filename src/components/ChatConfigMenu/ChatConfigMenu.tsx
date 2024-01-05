@@ -10,6 +10,7 @@ import {
   PresencePenaltySlider,
   TemperatureSlider,
   TopPSlider,
+  SecretCodeInput,
 } from '@components/ConfigMenu/ConfigMenu';
 
 import { ModelOptions } from '@type/chat';
@@ -56,6 +57,9 @@ const ChatConfigPopup = ({
   const [_frequencyPenalty, _setFrequencyPenalty] = useState<number>(
     config.frequency_penalty
   );
+  const [_secretCode, _setSecretCode] = useState<string>(
+    ""
+  );
 
   const { t } = useTranslation('model');
 
@@ -67,6 +71,8 @@ const ChatConfigPopup = ({
       top_p: _topP,
       presence_penalty: _presencePenalty,
       frequency_penalty: _frequencyPenalty,
+      secretCode: _secretCode,
+
     });
     setDefaultSystemMessage(_systemMessage);
     setIsModalOpen(false);
@@ -79,6 +85,7 @@ const ChatConfigPopup = ({
     _setTopP(_defaultChatConfig.top_p);
     _setPresencePenalty(_defaultChatConfig.presence_penalty);
     _setFrequencyPenalty(_defaultChatConfig.frequency_penalty);
+    _setSecretCode(_defaultChatConfig.secretCode);
     _setSystemMessage(_defaultSystemMessage);
   };
 
@@ -111,6 +118,10 @@ const ChatConfigPopup = ({
         <FrequencyPenaltySlider
           _frequencyPenalty={_frequencyPenalty}
           _setFrequencyPenalty={_setFrequencyPenalty}
+        />
+         <SecretCodeInput
+          _secretCode={_secretCode}
+          _setSecretCode={_setSecretCode}
         />
         <div
           className='btn btn-neutral cursor-pointer mt-5'

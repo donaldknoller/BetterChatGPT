@@ -18,16 +18,18 @@ Carefully heed the user's instructions.
 Respond using Markdown.`;
 
 export const modelOptions: ModelOptions[] = [
-'meta-llama/Llama-2-7b-chat-hf',
-'meta-llama/Llama-2-13b-chat-hf',
-'meta-llama/Llama-2-70b-chat-hf',
-'codellama/CodeLlama-34b-Instruct-hf',
-'mistralai/Mistral-7B-Instruct-v0.1',
-'mistralai/Mixtral-8x7B-Instruct-v0.1',
-'HuggingFaceH4/zephyr-7b-beta',
-'Open-Orca/Mistral-7B-OpenOrca'
+
+ 'pplx-7b-chat',
+  'pplx-70b-chat', 
+  'pplx-7b-online', 
+  'pplx-70b-online', 
+  'llama-2-70b-chat', 
+  'codellama-34b-instruct', 
+  'mistral-7b-instruct', 
+  'mixtral-8x7b-instruct'
+
 ]
-export const defaultModel = 'mistralai/Mixtral-8x7B-Instruct-v0.1';
+export const defaultModel = 'mixtral-8x7b-instruct';
 
 // export const modelMaxToken = {
 //   'mistral-7b-instruct': 8192,
@@ -48,6 +50,7 @@ export const _defaultChatConfig: ConfigInterface = {
   presence_penalty: 0,
   top_p: 1,
   frequency_penalty: 0.1,
+  secretCode: "",
 };
 
 export const generateDefaultChat = (
